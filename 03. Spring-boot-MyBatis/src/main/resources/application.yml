@@ -1,0 +1,63 @@
+server:
+  context-path: /web
+
+spring:
+  datasource:
+    druid:
+      # druid
+      type: com.alibaba.druid.pool.DruidDataSource
+      driver-class-name: oracle.jdbc.driver.OracleDriver
+      url: jdbc:oracle:thin:@localhost:1521:ORCL
+      username: test
+      password: 123456
+
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+
+      max-wait: 30000
+
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: select '1' from dual
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      # PSCache，PSCache
+      pool-prepared-statements: true
+      max-open-prepared-statements: 20
+      max-pool-prepared-statement-per-connection-size: 20
+      #filters, sql, 'wall'
+      filters: stat,wall
+      # Spring AOP.y.z.service.*,
+      aop-patterns: com.springboot.servie.*
+
+
+      # WebStatFilter
+      web-stat-filter:
+        enabled: true
+
+        url-pattern: /*
+
+        exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
+
+      # StatViewServlet
+      stat-view-servlet:
+        enabled: true
+        # druid，StatViewServlet
+        url-pattern: /druid/*
+
+        reset-enable: false
+
+        login-username: druid
+        login-password: druid123
+        # IP
+        # allow: 127.0.0.1
+        #　IP，deny allow）
+        # deny: 192.168.1.218
+
+      #StatFilter
+      filter:
+        stat:
+          log-slow-sql: true
+
